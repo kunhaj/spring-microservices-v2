@@ -27,6 +27,11 @@ You can reuse these images instead of creating and pushing new container images
 
 docker run -p 8080:8080 in28min/hello-world-rest-api:0.0.1.RELEASE
 
+kubectl delete deployment currency-conversion-service
+
+kubectl create deployment currency-conversion --image=kunhaj/mmv2-currency-conversion-service:0.0.11-SNAPSHOT
+kubectl expose deployment currency-conversion --type=LoadBalancer --port=8100
+
 kubectl create deployment hello-world-rest-api --image=in28min/hello-world-rest-api:0.0.1.RELEASE
 kubectl expose deployment hello-world-rest-api --type=LoadBalancer --port=8080
 kubectl scale deployment hello-world-rest-api --replicas=3
