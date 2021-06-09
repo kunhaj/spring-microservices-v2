@@ -8,7 +8,7 @@ metadata:
   name: currency-conversion
   namespace: default
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: currency-conversion
@@ -23,38 +23,26 @@ spec:
         app: currency-conversion
     spec:
       containers:
-      - image: kunhaj/mmv2-currency-conversion-service:0.0.11-SNAPSHOT
+      - image: in28min/mmv2-currency-conversion-service:0.0.12-SNAPSHOT
         imagePullPolicy: IfNotPresent
         name: mmv2-currency-conversion-service
-        readinessProbe:
-          initialDelaySeconds: 300
-          periodSeconds: 30
-          httpGet:
-            port: 8100
-            path: /actuator/health/readiness
-        livenessProbe:
-          initialDelaySeconds: 300
-          periodSeconds: 30
-          httpGet:
-            port: 8100
-            path: /actuator/health/liveness
+        env:
+          - name: CURRENCY_EXCHANGE_URI
+            value: http://currency-exchange
       restartPolicy: Always
-      schedulerName: default-scheduler
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    cloud.google.com/neg: '{"ingress":true}'
   labels:
     app: currency-conversion
   name: currency-conversion
   namespace: default
 spec:
   ports:
-    - port: 8100
-      protocol: TCP
-      targetPort: 8100
+  - port: 8100
+    protocol: TCP
+    targetPort: 8100
   selector:
     app: currency-conversion
   sessionAffinity: None
