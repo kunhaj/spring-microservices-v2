@@ -1,10 +1,14 @@
 Currency Exchange Service
 - http://localhost:8000/currency-exchange/from/USD/to/INR
 
-- http://35.188.67.21/currency-exchange/from/USD/to/INR < from kubernetes >
+- http://34.123.170.122:8000/currency-exchange/from/USD/to/INR < from kubernetes >
 
 Currency Conversion Service
 - http://localhost:8100/currency-conversion-feign/from/USD/to/INR/quantity/10
+
+http://35.184.16.196:8100/currency-conversion-feign/from/USD/to/INR/quantity/10
+
+
 
 http://35.223.40.231:8000/actuator/health/
 http://35.223.40.231:8000/actuator/health/liveness

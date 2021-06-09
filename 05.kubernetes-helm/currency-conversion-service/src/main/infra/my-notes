@@ -1,0 +1,54 @@
+helm create currency-conversion
+
+1. chart update image version
+
+ Chart.yaml 0.0.11-SNAPSHOT
+
+2 from deployment
+
+a) removed below
+
+         livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+
+b) updated container port as : 8100
+
+3. values.xml
+
+a) updated service to use
+
+
+service:
+  type: LoadBalancer
+
+
+b) updated image
+
+image:
+  repository: kunhaj/mmv2-currency-conversion-service
+
+
+run: helm template currency-conversion
+to replace the variables and see results
+
+run: helm lint currency-conversion
+to check formatting issues
+
+run: helm install currency-conversion  --debug --dry-run currency-conversion
+for dry run
+
+
+run: helm install currency-conversion currency-conversion
+to do final install
+
+
+helm install currency-exchange currency-exchange
+
+
+helm del currency-exchange  // to uninstall
